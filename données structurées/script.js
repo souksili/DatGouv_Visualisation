@@ -1,10 +1,3 @@
-async function loadData() {
-    const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRxYI0Ynud9Ihxuy9t7deptenjAPj6WobFEGcP4ykg1Li4mfrT4RKtfdWYJeu6eTZh7RsruevnRoaGP/pub?output=csv');
-    const csv = await response.text();
-    const data = Papa.parse(csv, { header: true, dynamicTyping: true }).data;
-    return data;
-}
-
 async function loadUniqueValues() {
     const response = await fetch('unique_values.csv');
     const csv = await response.text();
@@ -12,9 +5,21 @@ async function loadUniqueValues() {
     return data;
 }
 
+async function loadFilteredData(region, academie, departement) {
+    let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRxYI0Ynud9Ihxuy9t7deptenjAPj6WobFEGcP4ykg1Li4mfrT4RKtfdWYJeu6eTZh7RsruevnRoaGP/pub?output=csv';
+    if (region) url += `&region=${region}`;
+    if (academie) url += `&academie=${academie}`;
+    if (departement) url += `&departement=${departement}`;
+
+    const response = await fetch(url);
+    const csv = await response.text();
+    const data = Papa.parse(csv, { header: true, dynamicTyping: true }).data;
+    return data;
+}
+
 async function addMarker(map, school) {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 5000);
+    const timeout = setTimeout(() => controller.abort(), 5000); // 5 secondes de délai d'attente
 
     try {
         const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${school.Commune},${school.Département},France&format=json&limit=1`, { signal: controller.signal });
@@ -66,7 +71,6 @@ function populateFilters(uniqueValues) {
 }
 
 async function initMap() {
-    const data = await loadData();
     const uniqueValues = await loadUniqueValues();
     populateFilters(uniqueValues);
 
@@ -76,7 +80,7 @@ async function initMap() {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    document.getElementById('filterButton').addEventListener('click', () => {
+    document.getElementById('filterButton').addEventListener('click', async () => {
         map.eachLayer(layer => {
             if (layer instanceof L.Marker) {
                 map.removeLayer(layer);
@@ -87,12 +91,10 @@ async function initMap() {
         const academie = document.getElementById('academie').value;
         const departement = document.getElementById('departement').value;
 
+        const data = await loadFilteredData(region, academie, departement);
+
         data.forEach(school => {
-            if ((region === '' || school["Région académique"] === region) &&
-                (academie === '' || school.Académie === academie) &&
-                (departement === '' || school.Département === departement)) {
-                addMarker(map, school);
-            }
+            addMarker(map, school);
         });
     });
 }
