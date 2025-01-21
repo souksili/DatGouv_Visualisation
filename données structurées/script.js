@@ -1,4 +1,11 @@
 async function loadData() {
+    const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRxYI0Ynud9Ihxuy9t7deptenjAPj6WobFEGcP4ykg1Li4mfrT4RKtfdWYJeu6eTZh7RsruevnRoaGP/pub?output=csv');
+    const csv = await response.text();
+    const data = Papa.parse(csv, { header: true, dynamicTyping: true }).data;
+    return data;
+}
+
+async function loadUniqueValues() {
     const response = await fetch('unique_values.csv');
     const csv = await response.text();
     const data = Papa.parse(csv, { header: true, dynamicTyping: true }).data;
@@ -6,24 +13,35 @@ async function loadData() {
 }
 
 async function addMarker(map, school) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+
     try {
-        const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${school.Commune},${school.Département},France&format=json&limit=1`);
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${school.Commune},${school.Département},France&format=json&limit=1`, { signal: controller.signal });
+        clearTimeout(timeout);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const geoData = await response.json();
         if (geoData.length > 0) {
             const lat = geoData[0].lat;
             const lon = geoData[0].lon;
             L.marker([lat, lon]).addTo(map)
-                .bindPopup(`<b>${school["Dénomination principale"]}</b><br>${school.Commune}, ${school.Département}<br>Total élèves: ${school["Nombre total d'élèves"]}`);
+                .bindPopup(`<b>${school.Commune}</b><br>${school.Département}`);
         }
     } catch (error) {
-        console.error(`Error geocoding ${school.Commune}:`, error);
+        if (error.name === 'AbortError') {
+            console.error(`Request for ${school.Commune} timed out`);
+        } else {
+            console.error(`Error geocoding ${school.Commune}:`, error);
+        }
     }
 }
 
-function populateFilters(data) {
-    const regions = [...new Set(data.map(school => school["Région académique"]))];
-    const academies = [...new Set(data.map(school => school.Académie))];
-    const departements = [...new Set(data.map(school => school.Département))];
+function populateFilters(uniqueValues) {
+    const regions = [...new Set(uniqueValues.map(item => item["Région académique"]))];
+    const academies = [...new Set(uniqueValues.map(item => item.Académie))];
+    const departements = [...new Set(uniqueValues.map(item => item.Département))];
 
     regions.forEach(region => {
         const option = document.createElement('option');
@@ -49,7 +67,8 @@ function populateFilters(data) {
 
 async function initMap() {
     const data = await loadData();
-    populateFilters(data);
+    const uniqueValues = await loadUniqueValues();
+    populateFilters(uniqueValues);
 
     const map = L.map('map').setView([46.603354, 1.888334], 6);
 
