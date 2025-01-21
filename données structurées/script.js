@@ -85,10 +85,30 @@ async function initMap() {
 
         const data = await loadFilteredData(region, academie, departement);
 
-        data.forEach(school => {
-            addMarker(map, school);
-        });
+        const queue = data.map(school => () => addMarker(map, school));
+        await processQueue(queue, 5); // Limite à 5 requêtes simultanées
     });
+}
+
+async function processQueue(queue, concurrency) {
+    const results = [];
+    let index = 0;
+
+    async function worker() {
+        while (index < queue.length) {
+            const task = queue[index++];
+            try {
+                const result = await task();
+                results.push(result);
+            } catch (error) {
+                console.error(`Error processing task:`, error);
+            }
+        }
+    }
+
+    const workers = Array.from({ length: concurrency }, worker);
+    await Promise.all(workers.map(w => w()));
+    return results;
 }
 
 initMap();
