@@ -3,12 +3,8 @@ body {
     padding: 0;
     height: 100vh;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-}
-
-#filters {
-    margin-bottom: 20px;
 }
 
 #map {
