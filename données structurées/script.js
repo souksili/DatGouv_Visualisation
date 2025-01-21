@@ -18,12 +18,8 @@ async function loadFilteredData(region, academie, departement) {
 }
 
 async function addMarker(map, school) {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 5000); // 5 secondes de délai d'attente
-
     try {
-        const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${school.Commune},${school.Département},France&format=json&limit=1`, { signal: controller.signal });
-        clearTimeout(timeout);
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${school.Commune},${school.Département},France&format=json&limit=1`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -35,11 +31,7 @@ async function addMarker(map, school) {
                 .bindPopup(`<b>${school.Commune}</b><br>${school.Département}`);
         }
     } catch (error) {
-        if (error.name === 'AbortError') {
-            console.error(`Request for ${school.Commune} timed out`);
-        } else {
-            console.error(`Error geocoding ${school.Commune}:`, error);
-        }
+        console.error(`Error geocoding ${school.Commune}:`, error);
     }
 }
 
