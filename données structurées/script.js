@@ -1,8 +1,14 @@
 async function loadData() {
-    const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRxYI0Ynud9Ihxuy9t7deptenjAPj6WobFEGcP4ykg1Li4mfrT4RKtfdWYJeu6eTZh7RsruevnRoaGP/pub?output=csv');
-    const csv = await response.text();
-    const data = Papa.parse(csv, { header: true, dynamicTyping: true }).data;
-    return data;
+    try {
+        const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRxYI0Ynud9Ihxuy9t7deptenjAPj6WobFEGcP4ykg1Li4mfrT4RKtfdWYJeu6eTZh7RsruevnRoaGP/pub?output=csv');
+        const csv = await response.text();
+        const data = Papa.parse(csv, { header: true, dynamicTyping: true }).data;
+        console.log('Data loaded successfully:', data);
+        return data;
+    } catch (error) {
+        console.error('Error loading data:', error);
+        throw error;
+    }
 }
 
 async function addMarker(map, school) {
@@ -17,6 +23,9 @@ async function addMarker(map, school) {
             const lon = geoData[0].lon;
             L.marker([lat, lon]).addTo(map)
                 .bindPopup(`<b>${school.Commune}</b><br>${school.Département}`);
+            console.log(`Marker added for ${school.Commune}, ${school.Département} at (${lat}, ${lon})`);
+        } else {
+            console.warn(`No geo data found for ${school.Commune}, ${school.Département}`);
         }
     } catch (error) {
         console.error(`Error geocoding ${school.Commune}:`, error);
@@ -24,6 +33,7 @@ async function addMarker(map, school) {
 }
 
 function initialize() {
+    console.log('Initializing map...');
     const map = L.map('map').setView([46.603354, 1.888334], 6);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -31,7 +41,10 @@ function initialize() {
     }).addTo(map);
 
     loadData().then(data => {
+        console.log('Processing data...');
         processData(data, map);
+    }).catch(error => {
+        console.error('Error loading data:', error);
     });
 }
 
@@ -57,18 +70,25 @@ function processData(data, map) {
         const pointLng = parseFloat(school.Longitude); // Assurez-vous que vos données contiennent les coordonnées Longitude et Latitude
         const pointLat = parseFloat(school.Latitude);
 
-        const deltaPx = pointLng - topLeftLng;
-        const deltaPy = topLeftLat - pointLat;
-        const xPos = parseInt(deltaPx / cellWidth);
-        const yPos = parseInt(deltaPy / cellHeight);
-        const index = parseInt(xPos + yPos * resX);
+        if (!isNaN(pointLng) && !isNaN(pointLat)) {
+            const deltaPx = pointLng - topLeftLng;
+            const deltaPy = topLeftLat - pointLat;
+            const xPos = parseInt(deltaPx / cellWidth);
+            const yPos = parseInt(deltaPy / cellHeight);
+            const index = parseInt(xPos + yPos * resX);
 
-        if (xPos >= 0 && yPos >= 0 && index <= (rectangleCounts.length - 1)) {
-            if (typeof rectangleCounts[index] == 'undefined') {
-                rectangleCounts[index] = 1;
+            if (xPos >= 0 && yPos >= 0 && index <= (rectangleCounts.length - 1)) {
+                if (typeof rectangleCounts[index] == 'undefined') {
+                    rectangleCounts[index] = 1;
+                } else {
+                    rectangleCounts[index]++;
+                }
+                console.log(`Point ${school.Commune} added to grid cell (${xPos}, ${yPos})`);
             } else {
-                rectangleCounts[index]++;
+                console.warn(`Point ${school.Commune} is out of grid bounds`);
             }
+        } else {
+            console.warn(`Invalid coordinates for ${school.Commune}: (${pointLng}, ${pointLat})`);
         }
     });
 
@@ -80,6 +100,7 @@ function makeGrid(map, topLeftLat, topLeftLng, resX, resY, gridWidth, gridHeight
     const cellHeight = gridHeight / resY;
 
     map.on('tilesloaded', function() {
+        console.log('Map tiles loaded, rendering grid...');
         let index = 0;
         for (let j = 1; j <= resY; j++) {
             for (let i = 1; i <= resX; i++) {
@@ -103,6 +124,7 @@ function makeGrid(map, topLeftLat, topLeftLng, resX, resY, gridWidth, gridHeight
                     fillOpacity: 0.5
                 });
                 rectangle.addTo(map);
+                console.log(`Rectangle added at grid cell (${i}, ${j}) with color ${newHexColor}`);
 
                 index++;
             }
