@@ -8,12 +8,23 @@
     <script src="https://d3js.org/d3.v6.min.js"></script>
 </head>
 <body>
-    <h1>Visualisation de données non structurées</h1>
-    <input type="file" id="fileInput" accept=".txt">
-    <div id="dropZone">
-        Glissez-déposez un fichier TXT ici ou utilisez le bouton ci-dessus.
-    </div>
-    <svg id="visualization" width="960" height="600"></svg>
+    <header>
+        <h1>Visualisation de données non structurées</h1>
+    </header>
+    <main>
+        <section class="upload-section">
+            <input type="file" id="fileInput" accept=".txt">
+            <div id="dropZone">
+                Glissez-déposez un fichier TXT ici ou utilisez le bouton ci-dessus.
+            </div>
+        </section>
+        <section class="visualization-section">
+            <svg id="visualization" width="960" height="600"></svg>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Visualisation de données non structurées. Tous droits réservés.</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
