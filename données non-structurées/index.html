@@ -21,19 +21,16 @@
         <span id="progressText">Chargement...</span>
     </div>
     <div class="controls">
-        <label for="frequencyFilter">Filtrer par fréquence minimale : </label>
-        <input type="number" id="frequencyFilter" min="1" value="1">
-        <button id="downloadButton">Télécharger SVG</button>
-        <label for="colorScheme">Thème de couleurs : </label>
-        <select id="colorScheme">
-            <option value="category10">Catégorie 10</option>
-            <option value="category20">Catégorie 20</option>
-            <option value="category20b">Catégorie 20b</option>
-            <option value="category20c">Catégorie 20c</option>
+        <input type="text" id="searchInput" placeholder="Rechercher un mot...">
+        <button id="downloadButton" class="control-button">Télécharger la visualisation</button>
+        <select id="colorTheme" class="control-button">
+            <option value="default">Thème par défaut</option>
+            <option value="dark">Thème sombre</option>
+            <option value="light">Thème clair</option>
         </select>
     </div>
     <svg id="visualization" width="960" height="600"></svg>
-    <div id="legend"></div>
+    <div id="legend" class="legend"></div>
     <script src="script.js"></script>
 </body>
 </html>
