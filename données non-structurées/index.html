@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Visualisation de données non structurées à partir de fichiers TXT">
+    <meta name="author" content="Votre Nom">
     <title>Visualisation de données non structurées</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://d3js.org/d3.v6.min.js"></script>
@@ -13,6 +15,19 @@
     <div id="dropZone">
         Glissez-déposez un fichier TXT ici ou utilisez le bouton ci-dessus.
     </div>
+    <div id="controls">
+        <label for="minFrequency">Fréquence minimale : </label>
+        <input type="number" id="minFrequency" min="1" value="1">
+        <button id="downloadBtn">Télécharger la visualisation</button>
+        <select id="colorTheme">
+            <option value="category10">Thème 1</option>
+            <option value="category20">Thème 2</option>
+            <option value="category20b">Thème 3</option>
+            <option value="category20c">Thème 4</option>
+        </select>
+        <input type="text" id="searchBar" placeholder="Rechercher un mot...">
+    </div>
+    <div id="stats"></div>
     <svg id="visualization" width="960" height="600"></svg>
     <script src="script.js"></script>
 </body>
