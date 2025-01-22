@@ -1,6 +1,13 @@
 document.getElementById('fileInput').addEventListener('change', handleFileSelect);
 document.getElementById('dropZone').addEventListener('dragover', handleDragOver);
 document.getElementById('dropZone').addEventListener('drop', handleDrop);
+document.getElementById('frequencyThreshold').addEventListener('input', handleFrequencyThresholdChange);
+document.getElementById('searchInput').addEventListener('input', handleSearchInputChange);
+document.getElementById('resetButton').addEventListener('click', handleReset);
+document.getElementById('downloadButton').addEventListener('click', handleDownload);
+
+let data = [];
+let filteredData = [];
 
 function handleFileSelect(event) {
     const file = event.target.files[0];
@@ -34,16 +41,13 @@ function readFile(file) {
 }
 
 function processData(content) {
-    // Extract words and count their occurrences
     const wordCount = extractWords(content);
-    // Create a JSON object
-    const data = Object.keys(wordCount).map(word => ({ name: word, value: wordCount[word] }));
-
-    createVisualization(data);
+    data = Object.keys(wordCount).map(word => ({ name: word, value: wordCount[word] }));
+    filteredData = data;
+    createVisualization(filteredData);
 }
 
 function extractWords(text) {
-    // Simple word extraction and counting
     const words = text.toLowerCase().match(/\b\w+\b/g);
     const wordCount = {};
     words.forEach(word => {
@@ -61,12 +65,15 @@ function createVisualization(data) {
     const simulation = d3.forceSimulation(data)
         .force("x", d3.forceX(width / 2).strength(0.05))
         .force("y", d3.forceY(height / 2).strength(0.05))
-        .force("collide", d3.forceCollide(d => d.value * 5 + 10)) // Increase the radius for better spacing
+        .force("collide", d3.forceCollide(d => d.value * 5 + 10))
         .on("tick", ticked);
 
     const svg = d3.select("#visualization")
         .attr("viewBox", `0 0 ${width} ${height}`)
         .style("font", "12px sans-serif");
+
+    // Supprimer l'ancien graphique
+    svg.selectAll("*").remove();
 
     const zoom = d3.zoom()
         .scaleExtent([0.1, 4])
@@ -88,7 +95,7 @@ function createVisualization(data) {
             .on("end", dragended));
 
     node.append("circle")
-        .attr("r", d => d.value * 5) // Increase the initial size of the bubbles
+        .attr("r", d => d.value * 5)
         .attr("fill", d => color(d.name))
         .attr("opacity", 0.75)
         .attr("stroke-width", "2");
@@ -98,7 +105,7 @@ function createVisualization(data) {
         .attr("text-anchor", "middle")
         .text(d => d.name)
         .attr("class", "nodetext")
-        .attr("style", d => `font-size:${d.value}px`) // Adjust the text size for better readability
+        .attr("style", d => `font-size:${d.value}px`)
         .on("mouseover", function(event, d) {
             d3.select(this).style("cursor", "pointer").style("fill", "#2f4cff");
         })
@@ -127,4 +134,41 @@ function createVisualization(data) {
         d.fx = null;
         d.fy = null;
     }
+}
+
+function handleFrequencyThresholdChange(event) {
+    const threshold = parseInt(event.target.value, 10);
+    filteredData = data.filter(d => d.value >= threshold);
+    createVisualization(filteredData);
+}
+
+function handleSearchInputChange(event) {
+    const searchTerm = event.target.value.toLowerCase();
+    filteredData = data.filter(d => d.name.includes(searchTerm));
+    createVisualization(filteredData);
+}
+
+function handleReset() {
+    filteredData = data;
+    createVisualization(filteredData);
+    document.getElementById('frequencyThreshold').value = '';
+    document.getElementById('searchInput').value = '';
+}
+
+function handleDownload() {
+    const svg = document.getElementById('visualization');
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.onload = function() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        const a = document.createElement('a');
+        a.href = canvas.toDataURL('image/png');
+        a.download = 'visualization.png';
+        a.click();
+    };
+    img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
 }

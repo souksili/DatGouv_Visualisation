@@ -18,8 +18,19 @@
                 Glissez-déposez un fichier TXT ici ou utilisez le bouton ci-dessus.
             </div>
         </section>
+        <section class="controls">
+            <input type="number" id="frequencyThreshold" placeholder="Seuil de fréquence" min="1">
+            <input type="text" id="searchInput" placeholder="Rechercher un mot">
+            <button id="resetButton">Réinitialiser</button>
+            <button id="downloadButton">Télécharger l'image</button>
+        </section>
         <section class="visualization-section">
             <svg id="visualization" width="960" height="600"></svg>
+            <div id="legend">
+                <p>Légende :</p>
+                <p>Taille des bulles : Fréquence des mots</p>
+                <p>Couleurs : Différents mots</p>
+            </div>
         </section>
     </main>
     <footer>
