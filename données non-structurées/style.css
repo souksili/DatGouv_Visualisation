@@ -1,14 +1,6 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
-
-h1 {
-    color: #333;
-    margin-top: 20px;
 }
 
 #dropZone {
@@ -16,76 +8,18 @@ h1 {
     padding: 20px;
     margin: 20px auto;
     width: 80%;
-    max-width: 600px;
     text-align: center;
     border-radius: 5px;
-    background-color: #fff;
-    transition: background-color 0.3s ease;
-}
-
-#dropZone:hover {
-    background-color: #e0e0e0;
-}
-
-#controls {
-    margin: 20px auto;
-    width: 80%;
-    max-width: 600px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#controls label {
-    margin-right: 10px;
-}
-
-#controls input[type="number"] {
-    width: 60px;
-}
-
-#controls button {
-    padding: 5px 10px;
-    background-color: #2f4cff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#controls button:hover {
-    background-color: #1a33ff;
-}
-
-#controls select {
-    padding: 5px;
-    border-radius: 5px;
-}
-
-#controls input[type="text"] {
-    padding: 5px;
-    border-radius: 5px;
-    width: 200px;
-}
-
-#stats {
-    margin: 20px auto;
-    width: 80%;
-    max-width: 600px;
-    text-align: left;
 }
 
 .node circle {
     stroke: #000;
     stroke-width: 1.5px;
-    transition: fill 0.3s ease;
 }
 
 .nodetext {
     pointer-events: none;
     font: 12px sans-serif;
-    transition: fill 0.3s ease;
 }
 
 .nodevalue {
