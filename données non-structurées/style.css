@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#dropZone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.node circle {
+    stroke: #000;
+    stroke-width: 1.5px;
+}
+
+.nodetext {
+    pointer-events: none;
+    font: 12px sans-serif;
+}
+
+.nodevalue {
+    pointer-events: none;
+    font: 12px sans-serif;
+}
