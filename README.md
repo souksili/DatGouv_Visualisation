@@ -1,6 +1,6 @@
 # DatGouv_Visualisation
 
-# Visualisation des Données des Écoles
+# Visualisation des Données des Écoles (données structurées)
 
 ## Introduction
 
