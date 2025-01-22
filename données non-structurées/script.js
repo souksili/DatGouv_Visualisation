@@ -104,6 +104,9 @@ function createVisualization(data) {
         })
         .on("mouseout", function(d) {
             d3.select(this).style("fill", "#000");
+        })
+        .on("click", function(event, d) {
+            displayWordCount(d.name, d.value);
         });
 
     function ticked() {
@@ -127,4 +130,9 @@ function createVisualization(data) {
         d.fx = null;
         d.fy = null;
     }
+}
+
+function displayWordCount(word, count) {
+    const wordCountDisplay = document.getElementById('wordCountDisplay');
+    wordCountDisplay.innerHTML = `Le mot "${word}" apparaît ${count} fois.`;
 }
