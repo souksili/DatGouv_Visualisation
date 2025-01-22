@@ -39,8 +39,8 @@ function processData(content) {
     // Create a JSON object
     const data = Object.keys(wordCount).map(word => ({ name: word, value: wordCount[word] }));
 
-    createBubbleVisualization(data);
-    createBarVisualization(data);
+    createVisualization(data);
+    createBarChart(data);
 }
 
 function extractWords(text) {
@@ -53,7 +53,7 @@ function extractWords(text) {
     return wordCount;
 }
 
-function createBubbleVisualization(data) {
+function createVisualization(data) {
     const width = 480;
     const height = 600;
 
@@ -65,7 +65,7 @@ function createBubbleVisualization(data) {
         .force("collide", d3.forceCollide(d => d.value * 5 + 10)) // Increase the radius for better spacing
         .on("tick", ticked);
 
-    const svg = d3.select("#bubbleVisualization")
+    const svg = d3.select("#visualization")
         .attr("viewBox", `0 0 ${width} ${height}`)
         .style("font", "12px sans-serif");
 
@@ -130,14 +130,14 @@ function createBubbleVisualization(data) {
     }
 }
 
-function createBarVisualization(data) {
+function createBarChart(data) {
     const width = 480;
     const height = 600;
     const margin = { top: 20, right: 30, bottom: 40, left: 40 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    const svg = d3.select("#barVisualization")
+    const svg = d3.select("#barChart")
         .attr("viewBox", `0 0 ${width} ${height}`)
         .style("font", "12px sans-serif");
 
