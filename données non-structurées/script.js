@@ -1,9 +1,11 @@
-document.getElementById('fileInput').addEventListener('change', handleFileSelect);
-document.getElementById('dropZone').addEventListener('dragover', handleDragOver);
-document.getElementById('dropZone').addEventListener('drop', handleDrop);
-document.getElementById('searchInput').addEventListener('input', handleSearch);
-document.getElementById('downloadButton').addEventListener('click', downloadVisualization);
-document.getElementById('colorTheme').addEventListener('change', changeColorTheme);
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+    document.getElementById('dropZone').addEventListener('dragover', handleDragOver);
+    document.getElementById('dropZone').addEventListener('drop', handleDrop);
+    document.getElementById('searchInput').addEventListener('input', handleSearch);
+    document.getElementById('downloadButton').addEventListener('click', downloadVisualization);
+    document.getElementById('colorTheme').addEventListener('change', changeColorTheme);
+});
 
 let data = [];
 let filteredData = [];
