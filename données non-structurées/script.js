@@ -45,6 +45,7 @@ function processData(content) {
     data = Object.keys(wordCount).map(word => ({ name: word, value: wordCount[word] }));
     filteredData = data;
     createVisualization(filteredData);
+    createWordCloud(filteredData);
 }
 
 function extractWords(text) {
@@ -136,21 +137,64 @@ function createVisualization(data) {
     }
 }
 
+function createWordCloud(data) {
+    const width = 960;
+    const height = 600;
+
+    const svg = d3.select("#wordcloud")
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .style("font", "12px sans-serif");
+
+    // Supprimer l'ancien nuage de mots
+    svg.selectAll("*").remove();
+
+    const layout = d3.layout.cloud()
+        .size([width, height])
+        .words(data.map(d => ({ text: d.name, size: d.value * 10 })))
+        .padding(5)
+        .rotate(function() { return ~~(Math.random() * 2) * 90; })
+        .font("Impact")
+        .fontSize(function(d) { return d.size; })
+        .on("end", draw);
+
+    layout.start();
+
+    function draw(words) {
+        const g = svg.append("g")
+            .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")");
+
+        const text = g.selectAll("text")
+            .data(words)
+            .enter().append("text")
+            .style("font-size", function(d) { return d.size + "px"; })
+            .style("font-family", "Impact")
+            .style("fill", function(d, i) { return d3.interpolateSpectral(i / data.length); })
+            .attr("text-anchor", "middle")
+            .attr("transform", function(d) {
+                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+            })
+            .text(function(d) { return d.text; });
+    }
+}
+
 function handleFrequencyThresholdChange(event) {
     const threshold = parseInt(event.target.value, 10);
     filteredData = data.filter(d => d.value >= threshold);
     createVisualization(filteredData);
+    createWordCloud(filteredData);
 }
 
 function handleSearchInputChange(event) {
     const searchTerm = event.target.value.toLowerCase();
     filteredData = data.filter(d => d.name.includes(searchTerm));
     createVisualization(filteredData);
+    createWordCloud(filteredData);
 }
 
 function handleReset() {
     filteredData = data;
     createVisualization(filteredData);
+    createWordCloud(filteredData);
     document.getElementById('frequencyThreshold').value = '';
     document.getElementById('searchInput').value = '';
 }
