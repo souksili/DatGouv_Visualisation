@@ -15,7 +15,7 @@ Cette partie vise à créer une visualisation interactive des données des écol
 
 ### Aspects communicatifs
 - **Clarté des textes et des visuels** : Les textes et les visuels sont conçus pour être clairs et informatifs. Les cercles sur la carte sont colorés en fonction du nombre d'élèves, ce qui permet une compréhension rapide de la densité des élèves dans chaque école.
-- **Sources d'information** : Les données proviennent de [data.gouv.fr](https://www.data.gouv.fr/), une plateforme officielle du gouvernement français pour les données ouvertes.
+- **Sources d'information** : Les données proviennent de [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/effectifs-deleves-par-niveau-et-nombre-de-classes-par-ecole-date-dobservation-au-debut-du-mois-doctobre-chaque-annee/), une plateforme officielle du gouvernement français pour les données ouvertes.
 - **Visualisations créatives et interactives** : La carte interactive permet aux utilisateurs de zoomer, de dézoomer, et de cliquer sur les cercles pour obtenir plus d'informations sur chaque école.
 
 ### Aspect analytique
@@ -35,7 +35,7 @@ Cette visualisation peut être un outil précieux pour le Ministère de l'Éduca
 
 ## Source des Données
 
-Les données utilisées pour cette visualisation proviennent de [data.gouv.fr](https://www.data.gouv.fr/), une plateforme officielle du gouvernement français pour les données ouvertes. Les données ont été téléchargées au format CSV et traitées pour être affichées sur la carte interactive.
+Les données utilisées pour cette visualisation proviennent de [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/effectifs-deleves-par-niveau-et-nombre-de-classes-par-ecole-date-dobservation-au-debut-du-mois-doctobre-chaque-annee/), une plateforme officielle du gouvernement français pour les données ouvertes. Les données ont été téléchargées au format CSV et traitées pour être affichées sur la carte interactive.
 
 ## Conclusion
 
