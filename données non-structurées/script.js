@@ -141,39 +141,31 @@ function createWordCloud(data) {
     const width = 960;
     const height = 600;
 
-    const svg = d3.select("#wordcloud")
-        .attr("viewBox", `0 0 ${width} ${height}`)
-        .style("font", "12px sans-serif");
-
-    // Supprimer l'ancien nuage de mots
-    svg.selectAll("*").remove();
+    const color = d3.scaleOrdinal(d3.schemeCategory10);
 
     const layout = d3.layout.cloud()
         .size([width, height])
         .words(data.map(d => ({ text: d.name, size: d.value * 10 })))
         .padding(5)
-        .rotate(function() { return ~~(Math.random() * 2) * 90; })
+        .rotate(() => ~~(Math.random() * 2) * 90)
         .font("Impact")
-        .fontSize(function(d) { return d.size; })
+        .fontSize(d => d.size)
         .on("end", draw);
 
     layout.start();
 
     function draw(words) {
-        const g = svg.append("g")
-            .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")");
-
-        const text = g.selectAll("text")
+        d3.select("#wordcloud").append("g")
+            .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+            .selectAll("text")
             .data(words)
             .enter().append("text")
-            .style("font-size", function(d) { return d.size + "px"; })
+            .style("font-size", d => d.size + "px")
             .style("font-family", "Impact")
-            .style("fill", function(d, i) { return d3.interpolateSpectral(i / data.length); })
+            .style("fill", d => color(d.text))
             .attr("text-anchor", "middle")
-            .attr("transform", function(d) {
-                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-            })
-            .text(function(d) { return d.text; });
+            .attr("transform", d => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")")
+            .text(d => d.text);
     }
 }
 

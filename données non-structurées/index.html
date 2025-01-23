@@ -6,7 +6,7 @@
     <title>Visualisation de données non structurées</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://d3js.org/d3.v6.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.6/d3.layout.cloud.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
 </head>
 <body>
     <header>
@@ -34,8 +34,12 @@
             </div>
         </section>
         <section class="wordcloud-section">
-            <h2>Nuage de mots</h2>
             <svg id="wordcloud" width="960" height="600"></svg>
+            <div id="wordcloud-legend">
+                <p>Légende :</p>
+                <p>Taille des mots : Fréquence des mots</p>
+                <p>Couleurs : Différents mots</p>
+            </div>
         </section>
     </main>
     <footer>

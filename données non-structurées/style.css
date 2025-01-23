@@ -49,15 +49,16 @@ main {
     font-size: 16px;
 }
 
-.visualization-section {
+.visualization-section, .wordcloud-section {
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: relative;
+    margin-bottom: 20px;
 }
 
-#legend {
+#legend, #wordcloud-legend {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -65,14 +66,6 @@ main {
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.wordcloud-section {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
 }
 
 footer {
