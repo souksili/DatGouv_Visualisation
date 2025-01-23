@@ -40,3 +40,44 @@ Les données utilisées pour cette visualisation proviennent de [data.gouv.fr](h
 ## Conclusion
 
 Cette partie de visualisation des données des écoles en France est un outil puissant pour comprendre la répartition des écoles et des élèves. Il respecte les critères de notation en termes de aspects techniques, communicatifs, analytiques et individuels, et peut être un atout précieux pour le Ministère de l'Éducation et d'autres parties prenantes.
+
+---
+
+# Visualisation de Données Non Structurées
+
+## Introduction
+
+Cette application permet de visualiser des données non structurées à partir de fichiers texte. Elle offre plusieurs fonctionnalités pour explorer et analyser les données, y compris des visualisations de bulles et des nuages de mots.
+
+## Fonctionnalités
+
+### Aspects techniques
+- **Chargement de fichiers** : L'application permet de charger des fichiers texte (.txt) via une interface de glisser-déposer ou un bouton de sélection de fichier.
+- **Traitement des données** : Les données sont traitées pour extraire les mots et leur fréquence.
+- **Visualisation des bulles** : Les mots sont représentés sous forme de bulles, où la taille des bulles correspond à la fréquence des mots.
+- **Nuage de mots** : Les mots sont également représentés sous forme de nuage de mots, où la taille des mots correspond à leur fréquence.
+- **Filtres** : Les utilisateurs peuvent filtrer les mots par seuil de fréquence et rechercher des mots spécifiques.
+- **Téléchargement de l'image** : Les utilisateurs peuvent télécharger l'image de la visualisation.
+
+### Aspects communicatifs
+- **Clarté des visuels** : Les visualisations sont conçues pour être claires et informatives. Les bulles et les nuages de mots utilisent des couleurs distinctes pour différencier les mots.
+- **Interactivité** : Les utilisateurs peuvent interagir avec les visualisations en zoomant, en dézoomant, et en déplaçant les éléments.
+- **Légende** : Une légende est fournie pour expliquer les visualisations.
+
+### Aspect analytique
+- **Titre de la visualisation** : "Visualisation de Données Non Structurées"
+- **Ce que découvre-t-on ?** : La visualisation permet de découvrir la fréquence des mots dans un texte non structuré.
+- **Comment s'y prend-t-on ?** : Les données sont extraites et traitées pour afficher les mots sous forme de bulles et de nuages de mots.
+- **Difficultés rencontrées** : Les principales difficultés étaient le traitement des données texte et l'optimisation des performances des visualisations.
+- **Répartition des tâches** : Le projet a été réalisé en suivant une répartition des tâches claire et efficace.
+
+## Utilisation
+
+1. **Charger un fichier** : Utilisez le bouton de sélection de fichier ou glissez-déposez un fichier texte dans la zone prévue à cet effet.
+2. **Filtrer les données** : Utilisez les champs de seuil de fréquence et de recherche de mot pour filtrer les données affichées.
+3. **Interagir avec les visualisations** : Zoomez, dézoomez, et déplacez les éléments pour explorer les données.
+4. **Télécharger l'image** : Cliquez sur le bouton de téléchargement pour enregistrer l'image de la visualisation.
+
+## Conclusion
+
+Cette application de visualisation de données non structurées est un outil puissant pour explorer et analyser des données texte. Elle offre des fonctionnalités avancées pour filtrer et interagir avec les données, et peut être un atout précieux pour les chercheurs, les analystes, et d'autres parties prenantes.
