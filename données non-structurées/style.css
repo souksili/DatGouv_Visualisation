@@ -1,64 +1,44 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     text-align: center;
-    background-color: #f4f4f4;
+    background-color: #f8f9fa;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    color: #333;
 }
 
 header {
-    background-color: #4CAF50;
+    background-color: #007bff;
     color: white;
     padding: 1em 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 main {
     flex: 1;
     padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
 }
 
-.upload-section {
-    margin-bottom: 20px;
-}
-
-#dropZone {
-    border: 2px dashed #ccc;
-    padding: 20px;
-    margin: 20px auto;
-    width: 80%;
-    text-align: center;
-    border-radius: 5px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#fileInput {
-    margin: 20px 0;
-}
-
-.controls {
-    margin-bottom: 20px;
-}
-
-.controls input, .controls button {
-    margin: 5px;
-    padding: 10px;
-    font-size: 16px;
-}
-
-.visualization-section, .wordcloud-section {
+.visualization-section {
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: relative;
-    margin-bottom: 20px;
+    margin-right: 20px;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#legend, #wordcloud-legend {
+#legend {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -66,6 +46,85 @@ main {
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.controls-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-section {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+#dropZone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    margin: 20px auto;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+#dropZone:hover {
+    background-color: #e9ecef;
+}
+
+#fileInput {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.controls {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.controls input, .controls button, .controls select {
+    margin: 5px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.controls input:focus, .controls button:focus, .controls select:focus {
+    background-color: #e9ecef;
+}
+
+.text-input-section {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+#textInput {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    resize: vertical;
 }
 
 footer {
@@ -76,6 +135,7 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .node circle {

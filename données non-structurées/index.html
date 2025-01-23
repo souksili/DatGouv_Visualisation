@@ -13,32 +13,34 @@
         <h1>Visualisation de données non structurées</h1>
     </header>
     <main>
-        <section class="upload-section">
-            <input type="file" id="fileInput" accept=".txt">
-            <div id="dropZone">
-                Glissez-déposez un fichier TXT ici ou utilisez le bouton ci-dessus.
-            </div>
-        </section>
-        <section class="controls">
-            <input type="number" id="frequencyThreshold" placeholder="Seuil de fréquence" min="1">
-            <input type="text" id="searchInput" placeholder="Rechercher un mot">
-            <button id="resetButton">Réinitialiser</button>
-            <button id="downloadButton">Télécharger l'image</button>
-        </section>
         <section class="visualization-section">
             <svg id="visualization" width="960" height="600"></svg>
+            <svg id="wordcloud" width="960" height="600"></svg>
             <div id="legend">
                 <p>Légende :</p>
                 <p>Taille des bulles : Fréquence des mots</p>
                 <p>Couleurs : Différents mots</p>
             </div>
         </section>
-        <section class="wordcloud-section">
-            <svg id="wordcloud" width="960" height="600"></svg>
-            <div id="wordcloud-legend">
-                <p>Légende :</p>
-                <p>Taille des mots : Fréquence des mots</p>
-                <p>Couleurs : Différents mots</p>
+        <section class="controls-section">
+            <div class="upload-section">
+                <input type="file" id="fileInput" accept=".txt">
+                <div id="dropZone">
+                    Glissez-déposez un fichier TXT ici ou utilisez le bouton ci-dessus.
+                </div>
+            </div>
+            <div class="controls">
+                <input type="number" id="frequencyThreshold" placeholder="Seuil de fréquence" min="1">
+                <input type="text" id="searchInput" placeholder="Rechercher un mot">
+                <button id="resetButton">Réinitialiser</button>
+                <button id="downloadButton">Télécharger l'image</button>
+                <select id="visualizationSelector">
+                    <option value="bubble">Bulles</option>
+                    <option value="wordcloud">Nuage de mots</option>
+                </select>
+            </div>
+            <div class="text-input-section">
+                <textarea id="textInput" placeholder="Entrez du texte ici..."></textarea>
             </div>
         </section>
     </main>

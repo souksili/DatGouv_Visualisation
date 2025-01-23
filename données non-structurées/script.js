@@ -5,6 +5,8 @@ document.getElementById('frequencyThreshold').addEventListener('input', handleFr
 document.getElementById('searchInput').addEventListener('input', handleSearchInputChange);
 document.getElementById('resetButton').addEventListener('click', handleReset);
 document.getElementById('downloadButton').addEventListener('click', handleDownload);
+document.getElementById('visualizationSelector').addEventListener('change', handleVisualizationChange);
+document.getElementById('textInput').addEventListener('input', handleTextInputChange);
 
 let data = [];
 let filteredData = [];
@@ -155,7 +157,14 @@ function createWordCloud(data) {
     layout.start();
 
     function draw(words) {
-        d3.select("#wordcloud").append("g")
+        const svg = d3.select("#wordcloud")
+            .attr("viewBox", `0 0 ${width} ${height}`)
+            .style("font", "12px sans-serif");
+
+        // Supprimer l'ancien nuage de mots
+        svg.selectAll("*").remove();
+
+        svg.append("g")
             .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
             .selectAll("text")
             .data(words)
@@ -189,6 +198,7 @@ function handleReset() {
     createWordCloud(filteredData);
     document.getElementById('frequencyThreshold').value = '';
     document.getElementById('searchInput').value = '';
+    document.getElementById('textInput').value = '';
 }
 
 function handleDownload() {
@@ -207,4 +217,24 @@ function handleDownload() {
         a.click();
     };
     img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+}
+
+function handleVisualizationChange(event) {
+    const selectedValue = event.target.value;
+    if (selectedValue === 'bubble') {
+        document.getElementById('visualization').style.display = 'block';
+        document.getElementById('wordcloud').style.display = 'none';
+    } else if (selectedValue === 'wordcloud') {
+        document.getElementById('visualization').style.display = 'none';
+        document.getElementById('wordcloud').style.display = 'block';
+    }
+}
+
+function handleTextInputChange(event) {
+    const text = event.target.value;
+    const wordCount = extractWords(text);
+    data = Object.keys(wordCount).map(word => ({ name: word, value: wordCount[word] }));
+    filteredData = data;
+    createVisualization(filteredData);
+    createWordCloud(filteredData);
 }
