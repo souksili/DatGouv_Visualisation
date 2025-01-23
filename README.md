@@ -87,74 +87,105 @@ Cette application permet de visualiser des données non structurées à partir d
 Cette application de visualisation de données non structurées est un outil puissant pour explorer et analyser des données texte. Elle offre des fonctionnalités avancées pour filtrer et interagir avec les données, et peut être un atout précieux pour les chercheurs, les analystes, et d'autres parties prenantes.
 
 
+
+
 # Application de Visualisation Basée sur un Réseau de Neurones
 
 **Réalisé par Sehaki Sofiane**
 
-## CSV Visualizer avec Flask et Modèle Entraîné
+## 📋 Vue d'ensemble
 
-Ce projet permet de visualiser dynamiquement des données à partir de fichiers CSV via une interface web intuitive. Les données sont analysées à l’aide d’un modèle pré-entraîné, et les résultats sont affichés sous forme de visualisations interactives directement sur la page web.
+Cette application permet de visualiser dynamiquement des données à partir de fichiers CSV en utilisant un modèle pré-entraîné. L'application génère automatiquement des visualisations interactives via une interface web intuitive.
 
----
+## 🛠️ Étapes de Développement
 
-## Étapes du Projet
+### 1. Création et Entraînement du Modèle
 
-### Étape 1 : Création du Modèle
+#### Développement du Modèle
+- Utilisation de bibliothèques Python essentielles :
+  - `pandas` pour la manipulation des données
+  - `numpy` pour les calculs numériques
+  - `matplotlib` et `seaborn` pour la génération de visualisations
+- Implémentation des fonctionnalités d'analyse :
+  - Statistiques descriptives
+  - Génération d'histogrammes
+  - Création de boîtes à moustaches
+  - Matrices de corrélation
+  - Diagrammes circulaires pour les données catégorielles
 
-1. **Analyse des fichiers CSV**  
-   J’ai commencé par collecter plusieurs fichiers CSV contenant des données variées. Ces fichiers ont été utilisés pour explorer et analyser la structure des données et préparer un modèle adapté.
+#### Entraînement et Sauvegarde
+- Entraînement du modèle avec divers fichiers CSV
+- Sauvegarde du modèle entraîné au format `.pkl` pour une réutilisation efficace
 
-2. **Entraînement du modèle**  
-   Utilisation de Python avec des bibliothèques comme :  
-   - `pandas` : Pour le chargement et l’analyse des données.  
-   - `matplotlib` et `seaborn` : Pour la visualisation initiale des données.  
-   - `scikit-learn` (ou d’autres bibliothèques adaptées) : Pour construire et entraîner un modèle d’analyse.  
-     
-   Le modèle a été configuré pour extraire des insights (statistiques ou graphiques) à partir des fichiers CSV.
+### 2. Développement de l'Interface Web
 
-3. **Enregistrement du modèle**  
-   Une fois le modèle entraîné, je l’ai sauvegardé au format `.pkl` (Pickle). Cela permet de le réutiliser rapidement sans nécessiter de réentraînement à chaque exécution.
+#### Backend (Flask)
+- Configuration du serveur Flask
+- Création des routes pour :
+  - Le téléchargement de fichiers CSV
+  - L'analyse des données
+  - La génération de visualisations
+- Intégration du modèle pré-entraîné
+- Gestion des requêtes et des réponses
 
----
+#### Frontend
+- Développement d'une interface utilisateur responsive
+- Implémentation des fonctionnalités :
+  - Zone de dépôt pour les fichiers CSV
+  - Affichage dynamique des visualisations
+  - Interface divisée en quatre sections pour différentes visualisations
 
-### Étape 2 : Développement de l’Interface Backend
+### 3. Système de Visualisation
 
-1. **Utilisation de Flask**  
-   J’ai développé une application backend avec Flask. Les fonctionnalités principales sont les suivantes :  
-   - Chargement du modèle enregistré depuis le fichier `.pkl`.  
-   - Analyse des fichiers CSV uploadés par les utilisateurs.  
-   - Renvoi des résultats d’analyse au frontend pour affichage.
+#### Fonctionnalités
+- Génération automatique de graphiques basés sur le type de données
+- Affichage simultané de plusieurs visualisations :
+  - Statistiques descriptives
+  - Histogrammes pour variables numériques
+  - Diagrammes circulaires pour données catégorielles
+  - Matrices de corrélation
 
-2. **Gestion des fichiers CSV**  
-   À chaque fichier CSV ajouté, l’application traite automatiquement son contenu.  
-   Les résultats générés incluent :  
-   - Statistiques descriptives (moyenne, médiane, etc.).  
-   - Graphiques ou visualisations basés sur les données.
+#### Interactivité
+- Visualisations interactives permettant :
+  - Le zoom sur les graphiques
+  - L'exploration détaillée des données
+  - L'export des visualisations
 
----
+## 🚀 Guide d'Utilisation
 
-### Étape 3 : Conception de l’Interface Frontend
+1. Démarrez l'application Flask
+2. Accédez à l'interface web
+3. Téléchargez votre fichier CSV
+4. Les visualisations sont générées automatiquement
 
-1. **Page d’accueil dynamique**  
-   - Création d’une interface conviviale où les utilisateurs peuvent télécharger leurs fichiers CSV.  
-   - Développement avec `HTML`, `CSS` et `JavaScript` pour une expérience utilisateur fluide.
+## 💻 Technologies Utilisées
 
-2. **Affichage des résultats**  
-   - Dès qu’un fichier est uploadé, les résultats (statistiques ou graphiques) sont automatiquement affichés sur la page.  
-   - Les visualisations sont dynamiques et adaptées au contenu du fichier envoyé.
+- **Backend** : Python, Flask
+- **Frontend** : HTML, CSS, JavaScript
+- **Analyse de Données** : pandas, numpy
+- **Visualisation** : matplotlib, seaborn
+- **Modèle** : Format pickle (.pkl)
 
----
+## 📊 Fonctionnalités Détaillées
 
-### Étape 4 : Dynamique et Visualisations
+### Analyse des Données
+- Calcul automatique des statistiques descriptives
+- Détection des valeurs manquantes
+- Identification des types de données (numériques/catégorielles)
+- Analyse des corrélations entre variables
 
-1. **Affichage simultané des visualisations**  
-   À chaque ajout d’un fichier CSV, une nouvelle visualisation est générée sur la même page, divisée en quatre sections principales :  
-   - Haut gauche  
-   - Bas gauche  
-   - Haut droit  
-   - Bas droit  
+### Visualisations Générées
+- **Pour les données numériques** :
+  - Histogrammes de distribution
+  - Boîtes à moustaches
+  - Graphiques de corrélation
+- **Pour les données catégorielles** :
+  - Diagrammes circulaires
+  - Graphiques en barres
+  - Visualisations de distribution
 
-2. **Graphiques interactifs**  
-   Les visualisations incluent des graphiques interactifs (par exemple : histogrammes, graphiques à barres ou en secteurs).  
-   Les utilisateurs peuvent explorer les données de manière intuitive et fluide.
-
+### Interface Utilisateur
+- Design responsive adapté à tous les écrans
+- Navigation intuitive
+- Chargement dynamique des visualisations
+- Options d'export des résultats
