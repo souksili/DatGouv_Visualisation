@@ -5,48 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualisation de données non structurées</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
         <h1>Visualisation de données non structurées</h1>
+        <button id="toggleModeButton" class="mode-toggle" aria-label="Changer le mode d'affichage">
+            <i class="fas fa-sun"></i>
+        </button>
     </header>
     <main>
         <section class="visualization-section">
-            <svg id="visualization" width="960" height="600"></svg>
-            <svg id="wordcloud" width="960" height="600"></svg>
+            <div id="visualization-container">
+                <div id="d-container"></div>
+                <svg id="visualization" width="100%" height="100%"></svg>
+            </div>
             <div id="legend">
-                <p>Légende :</p>
-                <p>Taille des bulles : Fréquence des mots</p>
-                <p>Couleurs : Différents mots</p>
+                <div id="bubble-legend" class="legend-content">
+                    <h3>Légende</h3>
+                    <p><i class="fas fa-circle"></i> Taille des bulles : Fréquence des mots</p>
+                    <p><i class="fas fa-palette"></i> Couleurs : Différents mots</p>
+                </div>
+                <div id="wordcloud-legend" class="legend-content" style="display: none;">
+                    <h3>Légende</h3>
+                    <p><i class="fas fa-text-height"></i> Taille des mots : Fréquence</p>
+                    <p><i class="fas fa-palette"></i> Couleurs : Différents mots</p>
+                </div>
+                <div id="3d-legend" class="legend-content" style="display: none;">
+                    <h3>Légende</h3>
+                    <p><i class="fas fa-cube"></i> Taille : Fréquence des mots</p>
+                    <p><i class="fas fa-arrows-alt"></i> Position : Distribution 3D</p>
+                    <p><i class="fas fa-mouse-pointer"></i> Utilisez la souris pour pivoter</p>
+                </div>
             </div>
         </section>
         <section class="controls-section">
             <div class="upload-section">
-                <input type="file" id="fileInput" accept=".txt">
+                <input type="file" id="fileInput" accept=".txt" style="display:none;">
+                <button onclick="document.getElementById('fileInput').click()" class="upload-button">
+                    <i class="fas fa-upload"></i> Choisir un fichier
+                </button>
+                <span id="fileName"></span>
                 <div id="dropZone">
-                    Glissez-déposez un fichier TXT ici ou utilisez le bouton ci-dessus.
+                    <i class="fas fa-cloud-upload-alt fa-3x"></i>
+                    <p>Glissez-déposez un fichier TXT ici</p>
+                    <p class="small">ou utilisez le bouton ci-dessus</p>
                 </div>
             </div>
             <div class="controls">
                 <input type="number" id="frequencyThreshold" placeholder="Seuil de fréquence" min="1">
                 <input type="text" id="searchInput" placeholder="Rechercher un mot">
-                <button id="resetButton">Réinitialiser</button>
-                <button id="downloadButton">Télécharger l'image</button>
+                <button id="resetButton"><i class="fas fa-redo"></i> Réinitialiser</button>
+                <button id="downloadButton"><i class="fas fa-download"></i> Télécharger</button>
                 <select id="visualizationSelector">
                     <option value="bubble">Bulles</option>
                     <option value="wordcloud">Nuage de mots</option>
+                    <option value="3d">Nuage de mots 3D</option>
                 </select>
             </div>
             <div class="text-input-section">
-                <textarea id="textInput" placeholder="Entrez du texte ici..."></textarea>
+                <textarea id="textInput" placeholder="Entrez votre texte ici..."></textarea>
             </div>
         </section>
     </main>
     <footer>
         <p>&copy; 2025 Visualisation de données non structurées. Tous droits réservés.</p>
     </footer>
-    <script src="script.js"></script>
+    <div id="tooltip" class="tooltip"></div>
+    <script type="module" src="script.js"></script>
 </body>
 </html>

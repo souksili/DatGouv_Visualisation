@@ -1,0 +1,21 @@
+{
+  "name": "word-cloud-3d-visualization",
+  "version": "1.0.0",
+  "description": "Visualisation 3D de nuages de mots",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "vite build && vite gh-pages"
+  },
+  "dependencies": {
+    "d3": "^7.9.0",
+    "d3-cloud": "^1.2.5",
+    "three": "^0.128.0"
+  },
+  "devDependencies": {
+    "vite": "^4.5.0",
+    "vite-plugin-gh-pages": "^1.0.1"
+  }
+}
