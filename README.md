@@ -4,7 +4,7 @@
 
 **Réalisé par OUKSILI Samy**
 
-[text](https://souksili.github.io/DatGouv_Visualisation/donn%C3%A9es%20structur%C3%A9es/)
+[lien vers l'application](https://souksili.github.io/DatGouv_Visualisation/donn%C3%A9es%20structur%C3%A9es/)
 
 ## Introduction
 
@@ -51,7 +51,7 @@ Cette partie de visualisation des données des écoles en France est un outil pu
 
 **Réalisé par OUKSILI Samy**
 
-[text](https://souksili.github.io/DatGouv_Visualisation/donn%C3%A9es%20non-structur%C3%A9es/)
+[lien vers l'application](https://souksili.github.io/DatGouv_Visualisation/donn%C3%A9es%20non-structur%C3%A9es/)
 
 ## Introduction
 
