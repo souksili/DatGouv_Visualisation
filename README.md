@@ -4,6 +4,8 @@
 
 **Réalisé par OUKSILI Samy**
 
+[text](https://souksili.github.io/DatGouv_Visualisation/donn%C3%A9es%20structur%C3%A9es/)
+
 ## Introduction
 
 Cette partie vise à créer une visualisation interactive des données des écoles en France. La visualisation permet de représenter les écoles sur une carte géographique, avec des cercles colorés indiquant le nombre d'élèves dans chaque école. Cette application est conçue pour être un outil précieux pour le Ministère de l'Éducation, les chercheurs, et le grand public pour comprendre la répartition des écoles et des élèves à travers le pays.
@@ -48,6 +50,8 @@ Cette partie de visualisation des données des écoles en France est un outil pu
 # Visualisation de Données Non Structurées
 
 **Réalisé par OUKSILI Samy**
+
+[text](https://souksili.github.io/DatGouv_Visualisation/donn%C3%A9es%20non-structur%C3%A9es/)
 
 ## Introduction
 
